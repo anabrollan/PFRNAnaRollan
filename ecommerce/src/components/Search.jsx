@@ -1,7 +1,9 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import { colors } from "../global/color";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'; 
+import { faMagnifyingGlass, faXmark, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
   const [keyword, setKeyword] = useState("");
@@ -15,17 +17,19 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
         onChangeText={setKeyword}
       />
       
-      <Pressable onPress={() => onSearch(keyword)}>
-        <Icon name="search" size={24} color="colors.dark" />
-      </Pressable>
-      
-      <Pressable onPress={() => setKeyword("")}>
-        <Icon name="eraser" size={24} color="colors.dark" />
-      </Pressable>
-      
-      <Pressable onPress={goBack}>
-        <Icon name="arrow-left" size={24} color="colors.dark" />
-      </Pressable>
+<Pressable onPress={() => onSearch(keyword)} style={styles.button}>
+<FontAwesomeIcon icon={faMagnifyingGlass} size={20} color={colors.dark} />
+</Pressable>
+
+
+    <Pressable onPress={() => setKeyword("")} style={styles.button}>
+        <FontAwesomeIcon icon={faXmark} size={20} color={colors.dark} />
+    </Pressable>
+
+    <Pressable onPress={goBack} style={styles.button}>
+        <FontAwesomeIcon icon={faArrowLeft} size={20} color={colors.dark} />
+    </Pressable>
+
       
       {error ? <Text>{error}</Text> : null}
     </View>
@@ -35,18 +39,23 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
 export default Search;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 18,
-  },
-  input: {
-    width: 250,
-    padding: 8,
-    fontSize: 18,
-    backgroundColor: colors.light,
-    color: colors.dark,
-    borderRadius: 10,
-  },
-});
+    container: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    input: {
+      width: 150,
+      padding: 8,
+      fontSize: 20,
+      backgroundColor: colors.light,
+      color: colors.dark,
+      borderRadius: 10,
+      marginRight: 10, 
+      marginLeft: 20,
+    },
+    button: {
+      marginHorizontal: 5, 
+    },
+  });
+

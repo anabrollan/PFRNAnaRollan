@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors } from '../global/color'
 
-const Header = ({title="Holi"}) => {
+const Header = ({title="Bienvenida/-o"}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>

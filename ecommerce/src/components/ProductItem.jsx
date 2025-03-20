@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
-import Card from './Card'; // Asegúrate de importar Card correctamente
+import Card from './Card'; 
+import { colors } from '../global/color';
 
 const ProductItem = ({ product }) => {
   return (
-    <View style={styles.container}> 
       <Card style={styles.card}>
         <Text style={styles.text}>{product.title}</Text>
         <Image
@@ -13,12 +13,8 @@ const ProductItem = ({ product }) => {
           source={{ uri: product.images[0] }}
         />
       </Card>
-      <View>
-        <Text>ProductItem</Text>
-      </View>
-    </View>
-  );
-};
+  )
+}
 
 export default ProductItem;
 
@@ -31,11 +27,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     elevation: 5,
+    flexDirection: "row",
+    height: 150,
+    width: 250,
+    justifyContent: "space-between",
   },
   text: {
     fontSize: 16,

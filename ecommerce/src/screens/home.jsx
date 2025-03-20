@@ -1,34 +1,40 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { FlatList } from 'react-native-web'
-import categories from '../data/categories.json'
-import { colors } from '../global/color'
-import CategoryItem from '../components/CategoryItem'
-import Card from '../components/Card'
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import categories from '../data/categories.json';
+import { colors } from '../global/color';
+import CategoryItem from '../components/CategoryItem';
+import Search from '../components/Search';
 
-const Home = () => {
+const Home = ({ setCategorySelected }) => {
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const filteredCategories = categories
+    .sort()
+    .filter(category => category.toLowerCase().includes(searchKeyword.toLowerCase()));
+
   return (
-    <View style={styles.flatListContainer}>
+    <View style={styles.container}>
+      <Search onSearch={setSearchKeyword} />
+
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={categories.sort()}
-        renderItem={({item})=> <CategoryItem category={item} />}
-        keyExtractor={element => element}
+        data={filteredCategories}
+        renderItem={({ item }) => (
+          <CategoryItem category={item} selectedCategory={setCategorySelected} />
+        )}
+        keyExtractor={(item) => item}
       />
     </View>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 const styles = StyleSheet.create({
-    flatListContainer: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: colors.medium,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 50,
-    },
-})
+  container: {
+    flex: 1,
+    backgroundColor: colors.medium,
+    paddingTop: 20,
+    paddingHorizontal: 10,
+  },
+});
