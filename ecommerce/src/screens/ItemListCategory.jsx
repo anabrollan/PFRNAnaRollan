@@ -5,10 +5,13 @@ import products from '../data/products.json';
 import ProductItem from '../components/ProductItem';
 import Search from '../components/Search';
 
-const ItemListCategory = ({ categorySelected = "", setCategorySelected = () => {} }) => {
+const ItemListCategory = ({ 
+  route, navigation,
+ }) => {
   const [keyWord, setKeyWord] = useState("");
   const [error, setError] = useState("");
   const [productsFiltered, setProductsFiltered] = useState([]);
+  const {category: categorySelected} = route.params;
 
   useEffect(() => {
     const regex = /\d/;
@@ -16,7 +19,7 @@ const ItemListCategory = ({ categorySelected = "", setCategorySelected = () => {
       setError("Por favor, introduce solamente letras en la búsqueda");
       return;
     }
-    setError(""); // Limpiar el error si la búsqueda es válida
+    setError(""); 
 
     const productsPrefiltered = products.filter(product => product.category === categorySelected);
     const productsFilter = productsPrefiltered.filter(product =>
@@ -28,10 +31,12 @@ const ItemListCategory = ({ categorySelected = "", setCategorySelected = () => {
 
   return (
     <View style={styles.flatListContainer}>
-      <Search error={error} onSearch={setKeyWord} goBack={() => setCategorySelected("")} />
+      <Search error={error} onSearch={setKeyWord} goBack={() => navigation.goBack()} />
       <FlatList
         data={productsFiltered}
-        renderItem={({ item }) => <ProductItem product={item} />}
+        renderItem={({ item }) => <ProductItem product={item} 
+        navigation={navigation}
+        />}
         keyExtractor={(product) => product.id.toString()}
       />
     </View>

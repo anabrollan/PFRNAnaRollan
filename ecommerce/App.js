@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Text, View, TextInput } from 'react-native';
-import Header from './src/components/Header'
-import { colors } from './src/global/color';
-import Home from './src/screens/home';
-import ItemDetail from './src/screens/ItemDetail'
-import ItemListCategory from './src/screens/ItemListCategory';
 import {useFonts} from 'expo-font'
+import Navigator from './src/navigation/Navigator';
+import { colors } from './src/global/color'
+import { StyleSheet } from 'react-native';
+
 
 
 export default function App() {
-  const [categorySelected, setCategorySelected] = useState("")
-  console.log(categorySelected)
 
   const [fontsLoaded, fontError] = useFonts({
     Lato: require("./assets/Lato-Regular.ttf"),
@@ -24,18 +18,9 @@ export default function App() {
   if(fontsLoaded && !fontError) {
 
   return (
-    <View style={styles.container}>
-      <Header title="Categories" />
-      {!categorySelected ? (<Home setCategorySelected={setCategorySelected}/>
-        
-      ):(
-      
-      <ItemListCategory categorySelected={categorySelected} setCategorySelected={setCategorySelected}/>
-        )}
-      <StatusBar />
-    </View>
-  );
-  }
+    <Navigator />
+  )
+}
 }
 
 const styles = StyleSheet.create({

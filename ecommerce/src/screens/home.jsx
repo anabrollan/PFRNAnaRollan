@@ -5,24 +5,16 @@ import { colors } from '../global/color';
 import CategoryItem from '../components/CategoryItem';
 import Search from '../components/Search';
 
-const Home = ({ setCategorySelected }) => {
-  const [searchKeyword, setSearchKeyword] = useState('');
-
-  const filteredCategories = categories
-    .sort()
-    .filter(category => category.toLowerCase().includes(searchKeyword.toLowerCase()));
-
+const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Search onSearch={setSearchKeyword} />
-
-      <FlatList
+        <FlatList
         showsVerticalScrollIndicator={false}
-        data={filteredCategories}
-        renderItem={({ item }) => (
-          <CategoryItem category={item} selectedCategory={setCategorySelected} />
-        )}
-        keyExtractor={(item) => item}
+        keyExtractor={element => element}
+        data={categories}
+        renderItem={({ item }) => 
+          <CategoryItem category={item}
+        navigation={navigation}/>}
       />
     </View>
   );

@@ -23,5 +23,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.light,
     fontWeight: 'bold', 
+    fontFamily: 'Lato',
+    fontSize: 20,
   }
 });
